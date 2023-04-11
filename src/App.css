@@ -1,4 +1,17 @@
 .App {
   text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.card {
+  width: 500px;
+  height: 120px;
+  border: 2px solid black;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+#updateinput {
+  width: 100px;
+  height: 20px;
+}

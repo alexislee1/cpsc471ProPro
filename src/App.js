@@ -6,7 +6,16 @@ function App() {
 
   const[UserName, setUser] = useState("");
   const[Password, setPassword] = useState("");
+  const [UserList, setUserList] = useState([])
 
+  // for displaying username to the webpage
+  useEffect(() => {
+    Axios.get('http://localhost:3001/api/get').then((response) => {
+      setUserList(response.data)
+    });
+  }, [])
+
+  // for sending user sign up information to the server
   const submit = () => {
     Axios.post('http://localhost:3001/api/insert', {
       UserName: UserName, 
@@ -15,6 +24,12 @@ function App() {
       alert('successful insert');
     });
   };
+
+  // for deleting the user
+  const deleteUser = (user)  => {
+    Axios.delete(`http://localhost:3001/api/delete/${user}`);
+  }
+
 
   return (
     <div>
@@ -47,7 +62,18 @@ function App() {
         </form>
         <br />
         <button onClick = {submit}>Sign up</button>
+        
+        {UserList.map((val)=> {
+          return (
+            <div className = "card">
+             <h1>Users: {val.UserName}</h1> 
 
+             <button onClick={() => {deleteUser(val.UserName)}}>Delete</button>
+             <input type="text" id="updateinput"/>
+             <button>Update</button>
+            </div>
+          );
+        })}
       </div>
       
   );
